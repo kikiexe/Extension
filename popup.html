@@ -1,67 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Image Color Grading & Palette Extractor</title>
-  <link rel="stylesheet" href="popup.css">
-  <style>
-    /* Tambahkan gaya ini ke bagian <style> atau ke popup.css Anda */
-    #extractedPalette {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-      margin-top: 10px;
-    }
-    .palette-color-swatch {
-      width: 30px;
-      height: 30px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8em;
-      color: #fff; /* Teks default putih, nanti disesuaikan kontrasnya */
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.7); /* Agar teks terlihat di latar belakang warna */
-      cursor: pointer; /* Menunjukkan bisa diklik */
-    }
-    .palette-color-swatch:hover {
-      transform: scale(1.1);
-      transition: transform 0.2s ease;
-    }
-    .palette-hex-code {
-      font-size: 0.9em;
-      margin-left: 5px;
-      color: var(--text-color);
-    }
-  </style>
+    <title>Image Color Replacer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="popup.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Color Grading & Ekstraktor Palet</h1>
+    <div class="container">
+        <h1>Ganti Warna Gambar</h1>
 
-    <div class="card">
-      <p>Unggah **Foto Utama** yang ingin di-grade / diekstrak paletnya:</p>
-      <input type="file" id="mainImageUpload" accept="image/*">
-    </div>
-
-    <div class="card" id="extractedPaletteCard" style="display: none;">
-      <h2>Palet Warna Ditemukan</h2>
-      <div id="extractedPalette">
+        <div class="card">
+            <p>Tempel URL Gambar:</p>
+            <input type="text" id="imageUrl" placeholder="Contoh: https://example.com/daun.png" />
+            <button id="loadImage">Muat Gambar</button>
         </div>
-      <p style="margin-top: 15px; font-size: 0.9em; color: var(--dark-grey);">
-        Klik swatch warna untuk menyalin kode Hex.
-      </p>
+
+        <div class="card">
+            <h2>Pratinjau & Pilih Warna Asal</h2>
+            <p style="font-size: 0.9em; color: var(--text-color-light);">Klik pada gambar untuk mendapatkan kode Hex warna asal.</p>
+            <canvas id="mainImageDisplayCanvas"></canvas>
+            <div id="hexCodeDisplay">
+                <span id="colorSwatch" class="color-swatch"></span>
+                <span id="hexValueText">Klik pada gambar untuk mendapatkan warna.</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Atur Warna Pengganti</h2>
+            <label for="targetColorHex">Warna Asal (yang ingin diganti):</label>
+            <input type="text" id="targetColorHex" placeholder="#RRGGBB (cth: #72751B)" value="#72751B">
+            
+            <label for="replacementColorHex">Warna Pengganti:</label>
+            <input type="text" id="replacementColorHex" placeholder="#RRGGBB (cth: #1FAE1B)" value="#1FAE1B">
+
+            <label for="colorTolerance">Toleransi Warna (%):</label>
+            <input type="range" id="colorTolerance" min="0" max="100" value="5">
+            <span id="toleranceValue">5%</span>
+            
+            <button id="processColorChange">Ganti Warna</button>
+        </div>
+
+        <div class="card">
+            <h2>Hasil</h2>
+            <canvas id="outputCanvas"></canvas>
+            <button id="downloadModifiedImage">Unduh Gambar Hasil</button>
+        </div>
+
     </div>
-
-    <button id="processGrading">Proses Color Grading</button>
-
-    <div class="card" id="imagePreviewCard" style="display: none;">
-      <h2>Pratinjau Hasil</h2>
-      <canvas id="imageCanvas"></canvas>
-      <button id="downloadImage">Unduh Gambar</button>
-    </div>
-  </div>
-
-  <script src="popup.js"></script>
+    <script src="popup.js"></script>
 </body>
 </html>
