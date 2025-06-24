@@ -28,10 +28,10 @@ body {
   font-family: 'Press Start 2P', monospace;
   color: var(--text-light);
   background: var(--bg-dark);
-  width: 450px;
-  height: 600px;
+  width: 350px;
+  height: 550px;
   overflow-y: auto;
-  padding: 24px;
+  padding: 20px;
   border-radius: 20px;
   background-image: repeating-linear-gradient(
     45deg,
@@ -66,7 +66,7 @@ h2 {
 
 p {
   margin-bottom: 1em;
-  color: var(--text-light);
+  color: var(--dark-light);
   font-size: 1em;
 }
 
@@ -93,7 +93,7 @@ a:hover {
 
 .card p {
   margin-bottom: 0.8em;
-  color: var(--text-light);
+  color: var(--dark-light);
 }
 
 /* --- Button --- */
