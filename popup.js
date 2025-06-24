@@ -400,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateInputSwatch(e.target.value, replacementColorSwatch);
     });
 
-    // Init slider dan swatch saat pertama kali dimuat
+    // initialize the slider and swatch when first loaded
     updateSliderProgress();
     updateInputSwatch(targetColorHexInput.value, targetColorSwatch);
     updateInputSwatch(replacementColorHexInput.value, replacementColorSwatch);
@@ -408,7 +408,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateInputSwatch(e.target.value, replacementColorSwatch);
     });
 
-    // Init slider dan swatch saat pertama kali dimuat
+    // initialize the slider and swatch when first loaded
     updateSliderProgress();
     updateInputSwatch(targetColorHexInput.value, targetColorSwatch);
     updateInputSwatch(replacementColorHexInput.value, replacementColorSwatch);
