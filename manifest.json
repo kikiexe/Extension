@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Color Changer",
+  "name": "Image Color Changer",
   "version": "1.0",
   "description": "Change specific color in image.",
   "action": {
