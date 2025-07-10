@@ -1,3 +1,5 @@
+/* popup.css - Retro Version */
+
 /* --- Reset dan Box Model --- */
 *,
 *::before,
@@ -27,7 +29,8 @@ body {
   color: var(--text-light);
   background: var(--bg-dark);
   width: 350px;
-  height: 550px;
+  height: auto;
+  min-height: 550px;
   overflow-y: auto;
   padding: 20px;
   border-radius: 20px;
@@ -51,31 +54,21 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 1.5em; /* Adjusted for better fit */
   text-align: center;
   margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 1.2em;
   border-bottom: 2px dashed var(--secondary);
   padding-bottom: 0.5em;
 }
 
 p {
   margin-bottom: 1em;
-  color: var(--dark-light);
+  color: var(--text-dark);
   font-size: 1em;
-}
-
-/* --- Link --- */
-a {
-  color: var(--secondary);
-  text-decoration: underline dotted;
-}
-
-a:hover {
-  color: var(--accent);
 }
 
 /* --- Card --- */
@@ -89,14 +82,8 @@ a:hover {
   box-shadow: var(--shadow-retro);
 }
 
-.card p {
-  margin-bottom: 0.8em;
-  color: var(--dark-light);
-}
-
 /* --- Button --- */
-button,
-input[type="submit"] {
+button {
   background: var(--primary);
   color: var(--text-dark);
   border: var(--border-retro);
@@ -115,26 +102,60 @@ button:hover {
   transform: translateY(-2px);
 }
 
+/* --- Canvas Container and Controls --- */
+.canvas-container {
+  position: relative;
+  margin: 20px 0;
+}
+
+.canvas-controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  justify-content: center;
+}
+
+.zoom-btn {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: var(--text-light);
+  border-radius: 50%;
+  box-shadow: var(--shadow-retro);
+  transition: all 0.2s ease-in-out;
+}
+
+.zoom-btn:hover {
+  background: var(--secondary);
+  color: var(--text-dark);
+  transform: scale(1.1);
+}
+
+.zoom-btn:active {
+  transform: scale(0.95);
+}
+
 /* --- Input Fields --- */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea {
+input[type="text"] {
   width: 100%;
   padding: 12px;
   border-radius: 4px;
   border: var(--border-retro);
-  background: var(--bg-light);
+  background: #fffde7;
   color: var(--text-dark);
   font-family: inherit;
-  margin-bottom: 16px;
 }
 
-input:focus,
-textarea:focus {
+input:focus {
   outline: none;
   border-color: var(--primary);
-  background: #fffde7;
+  background: #fff;
 }
 
 /* --- Range Slider --- */
@@ -167,16 +188,6 @@ input[type="range"]::-webkit-slider-thumb {
   border: 2px solid var(--text-dark);
   box-shadow: 2px 2px 0 var(--text-dark);
   margin-top: -5px;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-input[type="range"]::-webkit-slider-thumb:hover {
-  background: var(--primary);
-  transform: scale(1.1);
-}
-
-input[type="range"]::-webkit-slider-thumb:active {
-  transform: scale(0.9);
 }
 
 /* --- Canvas --- */
@@ -185,25 +196,18 @@ input[type="range"]::-webkit-slider-thumb:active {
   width: 100%;
   height: auto;
   display: block;
-  margin: 20px auto;
+  margin: 0 auto;
   border-radius: 8px;
   border: var(--border-retro);
-  background: #fff8e1;
+  background: #fff;
   box-shadow: var(--shadow-retro);
-  min-width: 200px;
-  min-height: 200px;
   cursor: crosshair;
-  transition: transform 0.2s ease;
-}
-
-#outputCanvas {
-  cursor: crosshair;
+  transition: cursor 0.2s ease-in-out;
 }
 
 #mainImageDisplayCanvas:hover,
 #outputCanvas:hover {
-  transform: translateY(-2px);
-  box-shadow: 6px 6px 0 #000;
+  cursor: crosshair;
 }
 
 /* --- Color Input Group --- */
@@ -211,60 +215,96 @@ input[type="range"]::-webkit-slider-thumb:active {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  gap: 10px;
   margin-bottom: 18px;
-  position: relative;
 }
 
 .color-input-group label {
   flex: 0 0 100%;
-  margin-bottom: 8px;
-}
-
-.color-input-group input[type="text"] {
-  flex: 1;
-  min-width: 100px;
   margin-bottom: 0;
-  margin-right: 10px;
 }
 
-.input-color-swatch {
-  display: inline-block;
-  width: 32px;
-  height: 32px;
-  border: var(--border-retro);
-  box-shadow: var(--shadow-retro);
-  border-radius: 4px;
-  background-color: transparent;
-  vertical-align: middle;
-  transition: background-color 0.2s ease;
+/* Wrapper untuk input dan tombol copy */
+.input-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
 }
+
+.input-wrapper input[type="text"] {
+    width: 100%;
+    padding-right: 45px; /* Memberi ruang untuk tombol copy */
+}
+
+/* Posisi tombol copy di dalam input teks */
+.input-wrapper .copy-button {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 28px;
+    width: 28px;
+    box-shadow: none; /* Hilangkan shadow karena sudah di dalam */
+    border: 2px solid #333;
+    border-radius: 4px;
+    background-color: var(--primary);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.input-wrapper .copy-button:hover {
+    background-color: var(--secondary);
+}
+
+.input-wrapper .copy-button svg {
+    fill: var(--text-dark);
+}
+
+/* Gaya untuk kotak warna di luar input */
+.input-color-swatch,
+#replacementColorPicker {
+    width: 45px;
+    height: 45px;
+    border: var(--border-retro);
+    box-shadow: var(--shadow-retro);
+    border-radius: 4px;
+    background-color: transparent;
+    vertical-align: middle;
+}
+
+#replacementColorPicker {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+#replacementColorPicker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+#replacementColorPicker::-webkit-color-swatch {
+  border-radius: 2px;
+  border: var(--border-retro);
+}
+
 
 /* --- Hex Code Display --- */
 #hexCodeDisplay {
-  padding: 10px;
-  font-size: 1em;
-  gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-/* --- Color Swatch Utama --- */
 .color-swatch {
   width: 28px;
   height: 28px;
-}
-
-
-/* --- Responsive --- */
-@media (max-width: 480px) {
-  body {
-    padding: 16px;
-  }
-
-  h1 {
-    font-size: 1.5em;
-  }
-
-  button {
-    width: 100%;
-    padding: 12px;
-  }
+  border: var(--border-retro);
+  box-shadow: var(--shadow-retro);
 }

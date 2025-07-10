@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Image Color Replacer</title>
+    <title>Image Color Changer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
@@ -9,18 +9,20 @@
 </head>
 <body>
     <div class="container">
-        <h3>Image Color Replacer</h3>
+        <h1>Image Color Changer</h1>
 
         <div class="card">
             <p>Paste Image URL:</p>
-            <input type="text" id="imageUrl" placeholder="https://example.com/leaf.png" />
+            <input type="text" id="imageUrl" placeholder="e.g., https://example.com/leaf.png" />
             <button id="loadImage">Load Image</button>
         </div>
 
         <div class="card">
-            <h3>Preview</h3>
+            <h2>Preview & Pick Source Color</h2>
             <p style="font-size: 0.9em; color: var(--text-dark);">Click on the image to get the source color's Hex code.</p>
-            <canvas id="mainImageDisplayCanvas"></canvas>
+            <div class="canvas-container">
+                <canvas id="mainImageDisplayCanvas"></canvas>
+            </div>
             <div id="hexCodeDisplay">
                 <span id="colorSwatch" class="color-swatch"></span>
                 <span id="hexValueText">Click on the image to get a color.</span>
@@ -28,18 +30,30 @@
         </div>
 
         <div class="card">
-            <h3>Set Replacement Color</h3>
+            <h2>Set Replacement Color</h2>
             
+            <!-- Grup Input untuk Source Color -->
             <div class="color-input-group">
-                <label for="targetColorHex">Source Color:</label>
-                <input type="text" id="targetColorHex" placeholder="#RRGGBB" value="#72751B">
+                <label for="targetColorHex">Source Color (to be replaced):</label>
+                <div class="input-wrapper">
+                    <input type="text" id="targetColorHex" placeholder="#RRGGBB" value="#72751B">
+                    <button id="copySourceColorButton" class="copy-button" title="Copy Source Color">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                    </button>
+                </div>
                 <span class="input-color-swatch" id="targetColorSwatch"></span>
             </div>
             
+            <!-- Grup Input untuk Replacement Color -->
             <div class="color-input-group">
                 <label for="replacementColorHex">Replacement Color:</label>
-                <input type="text" id="replacementColorHex" placeholder="#RRGGBB" value="#1FAE1B">
-                <span class="input-color-swatch" id="replacementColorSwatch"></span>
+                <div class="input-wrapper">
+                    <input type="text" id="replacementColorHex" placeholder="#RRGGBB" value="#1FAE1B">
+                     <button id="copyReplacementColorButton" class="copy-button" title="Copy Replacement Color">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                    </button>
+                </div>
+                <input type="color" id="replacementColorPicker" value="#1FAE1B">
             </div>
 
             <label for="colorTolerance">Color Tolerance (%):</label>
@@ -50,9 +64,11 @@
         </div>
 
         <div class="card">
-            <h3>Result (Click here to pick the next color)</h3>
-            <canvas id="outputCanvas"></canvas>
-            <button id="downloadModifiedImage">Download</button>
+            <h2>Result (Click to pick color from here)</h2>
+            <div class="canvas-container">
+                <canvas id="outputCanvas"></canvas>
+            </div>
+            <button id="downloadModifiedImage">Download Final Image</button>
         </div>
 
     </div>
